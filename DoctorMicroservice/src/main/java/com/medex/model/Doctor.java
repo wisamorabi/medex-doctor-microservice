@@ -12,31 +12,33 @@ public class Doctor {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //"Do this identification for me, generate that specific ID for me
 	@Column(name="id") //Which column?
 	int id;
-	@Column(name="consumerID")
-	int consumerID;
+	@Column(name="name")
+	String name;
 
 
 	public Doctor() {}
 
 	//Non default constructor
-	public Doctor(int id, int aconsumerID) {
+	public Doctor(int id, String aname) {
 		this.id = id;
-		this.consumerID = aconsumerID;
+		this.name = aname;
 	}
 	public int getId()
 	{
 		return id;
 	}
-	public int getConsumerID()
-	{
-		return consumerID;
-	}
+
 	public void setId(int id)
 	{
 		this.id = id;
 	}
-	public void setConsumerID(int aconsumerID)
-	{
-		this.consumerID = aconsumerID;
+
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

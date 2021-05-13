@@ -7,7 +7,8 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.medex.model.Patient;
+import com.medex.dependentresources.Patient;
+
 
 //This class is specifically for the patients database operations
 public class PatientDB {

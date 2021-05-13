@@ -12,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.medex.communicationmodules.DoctorInfo;
+import com.medex.communicationmodules.Status;
 import com.medex.model.Doctor;
 import com.medex.services.DoctorService;
 
@@ -27,21 +29,21 @@ public class DoctorResources {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Doctor> getDoctors() {
+	public List<DoctorInfo> getDoctors() {
 		return doctorService.getAllDoctors();
 	}
 
 	@GET
 	@Path("{Doctorid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Doctor getDoctor(@PathParam("Doctorid") int id) {
+	public DoctorInfo getDoctor(@PathParam("Doctorid") int id) {
 		return doctorService.getDoctor(id);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Doctor addDoctor(Doctor aDoctor) {
+	public DoctorInfo addDoctor(Doctor aDoctor) {
 		return doctorService.addDoctor(aDoctor);
 	}
 
@@ -49,14 +51,20 @@ public class DoctorResources {
 	@Path("{Doctorid}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Doctor updateDoctor(@PathParam("Doctorid") int id, Doctor Doctor) {
+	public DoctorInfo updateDoctor(@PathParam("Doctorid") int id, Doctor Doctor) {
 		Doctor.setId(id);
 		return doctorService.updateDoctor(Doctor);
 	}
 
 	@DELETE
 	@Path("{Doctorid}")
-	public void removeDoctor(@PathParam("Doctorid") int id, Doctor Doctor) {
-		doctorService.removeDoctor(id);
+	public Status removeDoctor(@PathParam("Doctorid") int id, Doctor Doctor) {
+		return doctorService.removeDoctor(id);
+	}
+	
+	@Path("{Patientid}/Prescriptions")
+	public PatientResources getPatients()
+	{
+		return new PatientResources();
 	}
 }
