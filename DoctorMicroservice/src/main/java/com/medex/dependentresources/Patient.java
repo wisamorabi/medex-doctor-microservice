@@ -1,4 +1,4 @@
-package com.medex.model;
+package com.medex.dependentresources;
 
 import javax.persistence.*;
 
@@ -12,27 +12,24 @@ public class Patient {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //"Do this identification for me, generate that specific ID for me
 	@Column(name="id") //Which column?
 	int id;
-	@Column(name="consumerID")
-	int consumerID;
+	@Column(name="name")
+	String name;
 	@Column(name="wallet")
 	int wallet;
 	
 	public Patient() {}
 
 	//Non default constructor
-	public Patient(int id, int aconsumerID, int awallet) {
+	public Patient(int id, String aname, int awallet) {
 		this.id = id;
-		this.consumerID = aconsumerID;
+		this.name = aname;
 		this.wallet = awallet;
 	}
 	public int getId()
 	{
 		return id;
 	}
-	public int getConsumerID()
-	{
-		return consumerID;
-	}
+
 	public int getWallet() {
 		return wallet;
 	}
@@ -43,9 +40,15 @@ public class Patient {
 	{
 		this.id = id;
 	}
-	public void setConsumerID(int aconsumerID)
-	{
-		this.consumerID = aconsumerID;
+
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+
 }
 
