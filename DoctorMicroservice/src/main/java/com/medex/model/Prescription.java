@@ -20,17 +20,22 @@ public class Prescription {
 	int patientID;
 	@Column(name="count")
 	int count;
+	@Column(name="active")
+	boolean active = true;
 
 	
 	public Prescription() {}
 
 	//Non default constructor
-	public Prescription(int id, int apharmaceuticalID, int adoctorID, int apatientID, int acount) {
+	public Prescription(int id, int apharmaceuticalID, int adoctorID, int apatientID, int acount, boolean aactive) {
 		this.id = id;
 		this.pharmaceuticalID = apharmaceuticalID;
 		this.doctorID = adoctorID;
 		this.patientID = apatientID;
 		this.count = acount;
+		this.active = aactive;
+		if (count == 0) active = false;
+
 	}
 	public int getId() {
 		return id;
@@ -69,7 +74,16 @@ public class Prescription {
 	}
 
 	public void setCount(int count) {
+		if (count == 0) active = false;
 		this.count = count;
+	}
+
+	public boolean getActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 

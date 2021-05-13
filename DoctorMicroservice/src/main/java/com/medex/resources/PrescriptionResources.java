@@ -13,13 +13,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.medex.communicationmodules.Status;
+import com.medex.model.Prescription;
+import com.medex.services.PrescriptionService;
 
 
 
-//Request resources which acts as a layer before our Patient services
+//Request resources which acts as a layer before our Prescription services
 @Path("/")
 public class PrescriptionResources {
-	PatientService patientService = new PatientService();
+	PrescriptionService prescriptionService = new PrescriptionService();
 
 	public PrescriptionResources() {
 	}
@@ -27,42 +29,36 @@ public class PrescriptionResources {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<PatientInfo> getPatients() {
-		return patientService.getAllPatients();
+	public List<Prescription> getPrescriptions(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid) {
+		return prescriptionService.getAllPrescriptions(doctorid, patientid);
 	}
 
 	@GET
-	@Path("{Patientid}")
+	@Path("{Prescriptionid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public PatientInfo getPatient(@PathParam("Patientid") int id) {
-		return patientService.getPatient(id);
+	public Prescription getPrescription(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid, @PathParam("Prescriptionid") int prescriptionid) {
+		return prescriptionService.getPrescription(doctorid, patientid, prescriptionid);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public PatientInfo addPatient(Patient aPatient) {
-		return patientService.addPatient(aPatient);
+	public Prescription addPrescription(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid, Prescription aPrescription) {
+		return prescriptionService.addPrescription(doctorid, patientid, aPrescription);
 	}
 
 	@PUT
-	@Path("{Patientid}")
+	@Path("{Prescriptionid}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public PatientInfo updatePatient(@PathParam("Patientid") int id, Patient Patient) {
-		Patient.setId(id);
-		return patientService.updatePatient(Patient);
+	public Prescription updatePrescription(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid, @PathParam("Prescriptionid") int prescriptionid, Prescription aPrescription) {
+		aPrescription.setId(prescriptionid);
+		return prescriptionService.updatePrescription(doctorid, patientid, prescriptionid, aPrescription);
 	}
 
 	@DELETE
-	@Path("{Patientid}")
-	public Status removePatient(@PathParam("Patientid") int id, Patient Patient) {
-		return patientService.removePatient(id);
-	}
-	
-	@Path("{Patientid}/Prescriptions")
-	public PrescriptionResources getPrescriptions()
-	{
-		return new PrescriptionResources();
+	@Path("{Prescriptionid}")
+	public Status removePrescription(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid, @PathParam("Prescriptionid") int prescriptionid) {
+		return prescriptionService.removePrescription(doctorid, patientid, prescriptionid);
 	}
 }

@@ -5,9 +5,12 @@ import java.util.List;
 
 import com.medex.communicationmodules.PatientInfo;
 import com.medex.communicationmodules.Status;
+import com.medex.database.DoctorDB;
 import com.medex.database.PatientDB;
+import com.medex.database.PatientDoctorDB;
 import com.medex.database.PrescriptionDB;
 import com.medex.dependentresources.Patient;
+import com.medex.model.PatientDoctor;
 import com.medex.model.Prescription;
 
 
@@ -15,46 +18,73 @@ import com.medex.model.Prescription;
 public class PatientService {
 	PatientDB patientdb = new PatientDB(); //(Instead of the pseudo-database)
 	PrescriptionDB prescriptiondb = new PrescriptionDB(); //(Instead of the pseudo-database)
+	DoctorDB doctordb = new DoctorDB(); //(Instead of the pseudo-database)
+	PatientDoctorDB patientdoctordb = new PatientDoctorDB(); //(Instead of the pseudo-database)
 	public PatientService() {} 
 	
 	//All what is below is just calling the functions belonging to the patients' database/table.
 	
-	public List<PatientInfo>getAllPatients()
+	public List<PatientInfo>getAllPatients(int doctorid)
 	{
-		List<Patient> patientList = patientdb.getPatients(); //Get all hosts.
+		if (doctordb.getDoctor(doctorid) == null) return null;
+		List<PatientDoctor> patientdoctorlist = patientdoctordb.getPatientDoctors(doctorid);
+		List<Patient> patientList = new ArrayList<Patient>();
+		for (PatientDoctor pd : patientdoctorlist)
+		{
+			patientList.add(patientList.get(pd.getPatientid()));
+		}
+
 		List<PatientInfo> patientinfoList = new ArrayList<PatientInfo>(); //Make a list that contains HostInfo instances
 		if (patientList.isEmpty() == false) return null;	
 		for (Patient p : patientList)
-			patientinfoList.add(PatientToPatientInfo(p));
+			patientinfoList.add(PatientToPatientInfo(doctorid, p));
 		return patientinfoList;
 	}
 	
+	
+	
+	
 	public PatientInfo getPatient(int doctorid, int patientid)
 	{
-		Patient patient = patientdb.getPatient(doctorid, patientid); //Get all hosts.
-		if (patient == null) return null;
-		return PatientToPatientInfo(patient);
+		if (doctordb.getDoctor(doctorid) == null) return null;
+		List<PatientDoctor> patientdoctorlist = patientdoctordb.getPatientDoctors(doctorid);
+		Patient patient = null;
+		for (PatientDoctor pd : patientdoctorlist)
+		{
+			if (patientid == pd.getPatientid())
+				patient = patientdb.getPatient(patientid);
+				break;
+		}
+		return PatientToPatientInfo(doctorid, patient);
 	}
 	
-	public PatientInfo addPatient(Patient aPatient)
+	public Status addPatientDoctor(int doctorid, int patientid)
 	{
-		patientdb.insertPatient(aPatient); return aPatient;
-	}
-	
-	public PatientInfo updatePatient(Patient aPatient)
-	{
-		patientdb.updatePatient(aPatient); return aPatient;
-	}
-	
-	public Status removePatient(int id)
-	{
-		patientdb.deletePatient(id);
+		if (patientdb.getPatient(patientid) == null) return new Status(false);
+		if (doctordb.getDoctor(doctorid) == null) return new Status(false);
+		if (patientdoctordb.getPatientDoctor(doctorid, patientid) == null) return new Status(false);
+		patientdoctordb.insertPatientDoctor(new PatientDoctor(doctorid, patientid));
 		return new Status(true);
 	}
-	private PatientInfo PatientToPatientInfo(Patient aPatient)
+	
+	//Does not make sense to have it.
+//	public PatientInfo updatePatient(Patient aPatient)
+//	{
+//		patientdb.updatePatient(aPatient); return aPatient;
+//	}
+//	
+	public Status removePatientDoctor(int doctorid, int patientid)
+	{
+		if (patientdb.getPatient(patientid) == null) return new Status(false);
+		if (doctordb.getDoctor(doctorid) == null) return new Status(false);
+		if (patientdoctordb.getPatientDoctor(doctorid, patientid) == null) return new Status(false);
+		patientdoctordb.deletePatientDoctor(doctorid, patientid);
+		return new Status(true);
+	}
+	private PatientInfo PatientToPatientInfo(int doctorid, Patient aPatient)
 	{
 		PatientInfo patientInfo = new PatientInfo(aPatient);
-		List<Prescription> lst = prescriptiondb.get(patientInfo.getId()); //For every host, get the list of VMs it holds and attach that to the hashmap of VMs that each instance of HostInfo has.
+		List<Prescription> lst = prescriptiondb.getPrescriptions(doctorid, patientInfo.getId()); //For every host, get the list of VMs it holds and attach that to the hashmap of VMs that each instance of HostInfo has.
 		if (lst.isEmpty() == false) { patientInfo.listToMap(lst); 	}
 		
 		return patientInfo;

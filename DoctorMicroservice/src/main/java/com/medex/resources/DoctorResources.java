@@ -62,9 +62,14 @@ public class DoctorResources {
 		return doctorService.removeDoctor(id);
 	}
 	
-	@Path("{Patientid}/Prescriptions")
+	@Path("{Doctorid}/Patients")
 	public PatientResources getPatients()
 	{
 		return new PatientResources();
+	}
+	@Path("/Pharmaceuticals")
+	public PharmaceuticalResources getPharmaceuticals()
+	{
+		return new PharmaceuticalResources();
 	}
 }

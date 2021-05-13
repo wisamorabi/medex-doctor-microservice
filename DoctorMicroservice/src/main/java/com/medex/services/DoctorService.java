@@ -7,7 +7,6 @@ import com.medex.communicationmodules.DoctorInfo;
 import com.medex.communicationmodules.PatientInfo;
 import com.medex.communicationmodules.Status;
 import com.medex.database.DoctorDB;
-import com.medex.dependentresources.Patient;
 import com.medex.model.Doctor;
 
 
