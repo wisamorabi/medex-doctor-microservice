@@ -19,7 +19,7 @@ import com.medex.services.DoctorService;
 
 
 //Request resources which acts as a layer before our Doctor services
-@Path("/")
+@Path("/doctors")
 public class DoctorResources {
 	DoctorService doctorService = new DoctorService();
 
@@ -62,7 +62,7 @@ public class DoctorResources {
 		return doctorService.removeDoctor(id);
 	}
 	
-	@Path("{Doctorid}/Patients")
+	@Path("{Doctorid}/patients")
 	public PatientResources getPatients()
 	{
 		return new PatientResources();

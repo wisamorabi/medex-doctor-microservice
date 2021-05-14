@@ -15,7 +15,7 @@ public class PatientDB {
 	public void insertPatient(Patient patient)
 	{
 		Transaction transaction = null; //You have to make a transaction object
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getShoppingSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -40,7 +40,7 @@ public class PatientDB {
 	public void updatePatient(Patient patient)
 	{
 		Transaction transaction = null; //You have to make a transaction object
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getShoppingSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -68,7 +68,7 @@ public class PatientDB {
 	{
 		Transaction transaction = null; //You have to make a transaction object
 		Patient patient = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getShoppingSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -96,7 +96,7 @@ public class PatientDB {
 		Transaction transaction = null;
 		List<Patient> patients = null;
 		
-		try (Session session = HibernateUtil.getSessionFactory().openSession())
+		try (Session session = HibernateUtil.getShoppingSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
 			patients = session.createQuery("from Patient", Patient.class).list(); //This is a hibernate query (Get all patients from the patients database)
@@ -110,7 +110,7 @@ public class PatientDB {
 	{
 		Transaction transaction = null;
 		Patient patient = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession())
+		try (Session session = HibernateUtil.getShoppingSessionFactory().openSession())
 		{
 			//start a transaction
 			transaction = session.beginTransaction();

@@ -14,7 +14,7 @@ public class PrescriptionDB {
 	public void insertPrescription(Prescription prescription)
 	{
 		Transaction transaction = null; //You have to make a transaction object
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -39,7 +39,7 @@ public class PrescriptionDB {
 	public void updatePrescription(Prescription prescription)
 	{
 		Transaction transaction = null; //You have to make a transaction object
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -67,7 +67,7 @@ public class PrescriptionDB {
 	{
 		Transaction transaction = null; //You have to make a transaction object
 		Prescription prescription = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession()) //And now we make a session using the HibernateUtil object
 		{
 			// start a transaction using the session
 			transaction = session.beginTransaction();
@@ -95,7 +95,7 @@ public class PrescriptionDB {
 		Transaction transaction = null;
 		List<Prescription> prescriptions = null;
 		
-		try (Session session = HibernateUtil.getSessionFactory().openSession())
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession())
 		{
 			transaction = session.beginTransaction();
 			prescriptions = session.createQuery("from Prescription P WHERE P.doctorID = :doctorid AND P.patientID = :patientid", Prescription.class).setParameter("doctorid", doctorid).setParameter("patientid", patientid).list(); //This is a hibernate query (Get all prescriptions from the prescriptions database)
@@ -109,7 +109,7 @@ public class PrescriptionDB {
 	{
 		Transaction transaction = null;
 		Prescription prescription = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession())
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession())
 		{
 			//start a transaction
 			transaction = session.beginTransaction();
@@ -149,7 +149,7 @@ public class PrescriptionDB {
 	{
 		Transaction transaction = null;
 		Prescription prescription = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession())
+		try (Session session = HibernateUtil.getDoctorSessionFactory().openSession())
 		{
 			//start a transaction
 			transaction = session.beginTransaction();

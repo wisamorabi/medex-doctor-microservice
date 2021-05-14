@@ -19,7 +19,7 @@ import com.medex.services.PrescriptionService;
 
 
 //Request resources which acts as a layer before our Prescription services
-@Path("/")
+
 public class PrescriptionResources {
 	PrescriptionService prescriptionService = new PrescriptionService();
 

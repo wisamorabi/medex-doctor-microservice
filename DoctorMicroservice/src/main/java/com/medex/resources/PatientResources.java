@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -19,7 +20,7 @@ import com.medex.services.PatientService;
 
 
 //Request resources which acts as a layer before our Patient services
-@Path("/")
+
 public class PatientResources {
 	PatientService patientService = new PatientService();
 
@@ -40,7 +41,7 @@ public class PatientResources {
 		return patientService.getPatient(doctorid, patientid);
 	}
 
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Status addPatientDoctor(@PathParam("Doctorid") int doctorid, @PathParam("Patientid") int patientid) {
