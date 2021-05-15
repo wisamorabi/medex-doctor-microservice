@@ -72,4 +72,11 @@ public class DoctorResources {
 	{
 		return new PharmaceuticalResources();
 	}
+	
+	
+	@Path("/login/{username}/{password}")
+	public Doctor getPatientLogin(@PathParam("username") String username, @PathParam("password") String password)
+	{
+		return doctorService.getDoctorLogin(username, password);
+	}
 }

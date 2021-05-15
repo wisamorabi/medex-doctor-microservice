@@ -13,7 +13,7 @@ import com.medex.services.PharmaceuticalService;
 
 
 //Request resources which acts as a layer before our Pharmaceutical services
-@Path("/Pharmaceuticals")
+@Path("/pharmaceuticals")
 public class PharmaceuticalResources {
 	PharmaceuticalService pharmaceuticalService = new PharmaceuticalService();
 

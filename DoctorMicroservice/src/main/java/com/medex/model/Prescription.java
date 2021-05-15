@@ -88,6 +88,14 @@ public class Prescription {
 		this.name = name;
 	}
 
+	public boolean getActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 
 	
 }

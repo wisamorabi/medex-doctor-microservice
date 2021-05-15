@@ -92,7 +92,7 @@ public class PharmaceuticalDB {
 	}
 
 	//Retrieve all pharmacies from the database and store them in a list
-	public List<Pharmaceutical> getPharmacies()
+	public List<Pharmaceutical> getPharmaceuticals()
 	{
 		Transaction transaction = null;
 		List<Pharmaceutical> pharmacies = null;

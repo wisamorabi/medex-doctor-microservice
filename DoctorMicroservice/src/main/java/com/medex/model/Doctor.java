@@ -14,14 +14,21 @@ public class Doctor {
 	int id;
 	@Column(name="name")
 	String name;
+	@Column(name="username")
+	String username;
+	@Column(name="password")
+	String password;
+
 
 
 	public Doctor() {}
 
 	//Non default constructor
-	public Doctor(int id, String aname) {
+	public Doctor(int id, String aname, String username, String password) {
 		this.id = id;
 		this.name = aname;
+		this.username = username;
+		this.password = password;
 	}
 	public int getId()
 	{
@@ -39,6 +46,22 @@ public class Doctor {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

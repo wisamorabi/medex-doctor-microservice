@@ -54,6 +54,12 @@ public class DoctorService {
 		return new Status(true);
 	}
 	
+	public Doctor getDoctorLogin(String username, String password)
+	{
+		return doctordb.getDoctorLogin(username, password); //Get all hosts.
+
+	}
+	
 	
 	private DoctorInfo DoctorToDoctorInfo(Doctor adoctor)
 	{
