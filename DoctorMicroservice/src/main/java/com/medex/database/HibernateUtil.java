@@ -7,6 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import com.medex.dependentresources.Patient;
+import com.medex.dependentresources.Pharmaceutical;
 import com.medex.model.Doctor;
 import com.medex.model.PatientDoctor;
 import com.medex.model.Prescription;
@@ -85,18 +87,12 @@ public class HibernateUtil {
 				
 				configuration.setProperties(settings); //Applying the settings to the configuration object
 
-				configuration.addAnnotatedClass(Doctor.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
-				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
-				configuration.addAnnotatedClass(Prescription.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
-				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
-
-				configuration.addAnnotatedClass(PatientDoctor.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
+				configuration.addAnnotatedClass(Pharmaceutical.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
 				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
 
 				
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 				//Just biuilding the whole thing.
-				
 				pharmacysessionFactory = configuration.buildSessionFactory(serviceRegistry); //This function will return a session factory now.
 			}
 			catch (Exception e)
@@ -127,13 +123,9 @@ public class HibernateUtil {
 				
 				configuration.setProperties(settings); //Applying the settings to the configuration object
 
-				configuration.addAnnotatedClass(Doctor.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
-				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
-				configuration.addAnnotatedClass(Prescription.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
+				configuration.addAnnotatedClass(Patient.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
 				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
 
-				configuration.addAnnotatedClass(PatientDoctor.class); //The patient class is the one that has the annotation, this is what we consider when saving to the database.
-				//If we have multiple classes then we do configuration.addAnnotatedClass(X.class) again.
 
 				
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

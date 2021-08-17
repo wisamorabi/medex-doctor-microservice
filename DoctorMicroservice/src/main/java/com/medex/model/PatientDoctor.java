@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Table(name = "PatientDoctor") //Where this entity will be placed
 //Now, the fields that we will annotate will be stored in the hosts table.
 public class PatientDoctor {
-	@Column(name="patientid") //Which column?
+	@Column(name="patientID") //Which column?
 	int patientid;
-	@Column(name="doctorid")
+	@Column(name="doctorID")
 	int doctorid;
 	
 	public PatientDoctor() {}
